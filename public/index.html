@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Authentication</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Basic Authentication Demo</h1>
+
+        
+        <button id="login-btn">Giriş Yap</button>
+        
+        <button id="signup-btn">Kayıt Ol</button>
+   
+        <button id="reset-password-btn">Şifreyi Sıfırla</button>
+
+        <div id="login-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" id="close-login-btn">&times;</span>
+                <h2>Giriş Yap</h2>
+                <input type="text" id="login-username" placeholder="Kullanıcı Adı" required>
+                <input type="password" id="login-password" placeholder="Şifre" required>
+                <button id="login-submit-btn">Giriş Yap</button>
+                <p id="login-message"></p>
+            </div>
+        </div>
+
+        <div id="signup-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" id="close-signup-btn">&times;</span>
+                <h2>Kayıt Ol</h2>
+                <input type="text" id="signup-username" placeholder="Kullanıcı Adı" required>
+                <input type="password" id="signup-password" placeholder="Şifre" required>
+                <button id="signup-submit-btn">Kayıt Ol</button>
+                <p id="signup-message"></p>
+            </div>
+        </div>
+
+        <div id="reset-password-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" id="close-reset-password-btn">&times;</span>
+                <h2>Şifreyi Sıfırla</h2>
+                <input type="email" id="reset-password-email" placeholder="E-posta Adresi" required>
+                <button id="reset-password-submit-btn">Şifreyi Sıfırla</button>
+                <p id="reset-password-message"></p>
+            </div>
+        </div>
+
+        <div id="private-container" class="form-container" style="display:none;">
+            <h2>Private Route</h2>
+            <button id="get-private-data">Get Private Data</button>
+            <p id="private-message"></p>
+        </div>
+
+        <button id="logout-btn" style="display:none;">Çıkış Yap</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
