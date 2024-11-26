@@ -3,17 +3,17 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const { sendEmail } = require("../utils/emailservice");
 
-// Token oluşturucu yardımcı fonksiyon
+
 const generateToken = (id, secret, expiresIn) => {
   return jwt.sign({ id }, secret, { expiresIn });
 };
 
-// Kayıt olma
+
 const signup = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
-
-    // Şifre geçerlilik kontrolü
+    const passwordValidation = (password) => {
+    }
     if (!password || password.length < 8 || !/[A-Z]/.test(password) || !/\d/.test(password)) {
       return res.status(400).json({ message: "Şifre en az 8 karakter, bir büyük harf ve bir rakam içermelidir." });
     }
@@ -34,7 +34,6 @@ const signup = async (req, res, next) => {
 
     await user.save();
 
-    // E-posta doğrulama bağlantısı gönder
     const emailToken = generateToken(user._id, process.env.EMAIL_SECRET, "1d");
     const verifyLink = `${process.env.CLIENT_URL}/verify_email?token=${emailToken}`;
     await sendEmail(email, "E-posta Doğrulama", `E-posta doğrulama bağlantınız: ${verifyLink}`);
@@ -45,7 +44,6 @@ const signup = async (req, res, next) => {
   }
 };
 
-// Giriş yapma
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -68,7 +66,6 @@ const login = async (req, res, next) => {
   }
 };
 
-// Refresh token ile yeni Access token oluşturma
 const refreshToken = async (req, res, next) => {
   try {
     const { token } = req.body;
@@ -84,7 +81,7 @@ const refreshToken = async (req, res, next) => {
   }
 };
 
-// E-posta doğrulama
+
 const verifyEmail = async (req, res, next) => {
   try {
     console.log("Verifying email..."); 
@@ -102,7 +99,6 @@ const verifyEmail = async (req, res, next) => {
   }
 };
 
-// Şifre sıfırlama talebi
 const resetPasswordRequest = async (req, res, next) => {
   try {
     const { email } = req.body;
@@ -122,7 +118,6 @@ const resetPasswordRequest = async (req, res, next) => {
   }
 };
 
-// Şifre sıfırlama
 const resetPassword = async (req, res, next) => {
   try {
     const { token, newPassword } = req.body;
@@ -146,11 +141,10 @@ const resetPassword = async (req, res, next) => {
   }
 };
 const logout = (req, res) => {
-    res.clearCookie('accessToken');  // Erişim token'ını temizle
-    res.clearCookie('refreshToken'); // Refresh token'ını temizle
+    res.clearCookie('accessToken');  
+    res.clearCookie('refreshToken'); 
     res.json({ message: 'Başarıyla çıkış yapıldı.' });
   };
-  // authController.js
 const privateRoute = (req, res) => {
     res.json({ message: "Bu rota yalnızca giriş yapmış kullanıcılar için geçerlidir." });
   };

@@ -11,11 +11,10 @@ dotenv.config();
 connectDB();
 
 const app = express();
+function configureSecurity() {
 app.use(bodyParser.json());
 app.use(cors());
 app.use(helmet()); 
-
-
 app.use(bodyParser.json()); // JSON body parsing middleware
 app.use(bodyParser.urlencoded({ extended: true })); // URL encoded parsing middleware
 
@@ -24,11 +23,10 @@ app.use(
     origin: process.env.ALLOWED_ORIGINS.split(","),
     methods: ["GET", "POST", "DELETE"],
   })
-); // CORS ayarları
+); }// CORS ayarları
 
-app.use(helmet()); // Güvenli HTTP başlıkları
-app.use(rateLimiter); // Brute-force saldırılarından koruma
-
+app.use(helmet()); 
+app.use(rateLimiter); 
 // Routes
 const authRoutes = require("./routes/auth");
 app.use("/api/auth", authRoutes); // /api/auth altında auth işlemleri
