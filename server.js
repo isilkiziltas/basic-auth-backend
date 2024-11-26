@@ -1,18 +1,21 @@
 const express = require("express");
 const dotenv = require("dotenv");
+dotenv.config();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const rateLimiter = require("./utils/rateLimiter");
 const connectDB = require("./config/db");
 const errorHandler = require("./middleware/errorMiddleware");
-
-dotenv.config(); // dotenv bir kez çağrılmalı
-connectDB(); // Veritabanı bağlantısı
+dotenv.config();
+connectDB();
 
 const app = express();
+app.use(bodyParser.json());
+app.use(cors());
+app.use(helmet()); 
 
-// Middleware'ler
+
 app.use(bodyParser.json()); // JSON body parsing middleware
 app.use(bodyParser.urlencoded({ extended: true })); // URL encoded parsing middleware
 
@@ -39,4 +42,4 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-});
+})

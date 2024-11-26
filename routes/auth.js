@@ -27,5 +27,7 @@ router.post("/reset_password", resetPassword); // Şifre sıfırlama
 
 // Özel (yetkilendirilmiş) bir rota
 router.get("/private", authMiddleware, privateRoute); // Middleware korumalı özel rota
-
+router.get("/", (req, res) => {
+    res.send("Auth API is working!");
+  });
 module.exports = router; // Router dışa aktarılıyor
